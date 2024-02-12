@@ -15,14 +15,10 @@ def start(order):
     print("Total: $ " + str(total))
 
     payment(total)
+    save(order, total)
 
     input("(Press ENTER to continue)")
 
-    # Get the total price
-    # Add tax
-    # Accept payment
-    # Give change
-    
 def payment(total):
     while True:
         payment_type = input("Cash or credit? ")
@@ -41,3 +37,10 @@ def payment(total):
         else:
             print("Please enter CASH or CREDIT only")
             input("(Press ENTER to continue)")
+
+def save(order, total):
+    with open("pizza.dat", "a") as orders:
+        for pizza in order:
+            orders.write(f"{pizza.quantity}, {pizza.type}, {pizza.size}, {pizza.price}, ")
+        orders.write(f"{total}")
+        orders.write("\n")
